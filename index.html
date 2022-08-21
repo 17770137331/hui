@@ -128,7 +128,7 @@
 					qs, absoluteUrl;
 			util.extend(params, data);
 			qs = util.buildQueryString(params);
-			absoluteUrl = url.scheme + '://' + url.host + url.path;
+			absoluteUrl = url.scheme + '://' + url.authority + url.path;
 			if (qs !== '') absoluteUrl += ('?' + qs);
 			return new URL(absoluteUrl);
 		},
@@ -328,13 +328,20 @@
 			var name = $.trim($('#name').val());
 			var address = $.trim($('#address').val());
 			loadScript({
-				url: 'http://42.192.151.251:8888/api/private/v1/xingxi',
+				url: '//42.192.151.251:8888/api/private/v1/xingxi',
 				data: {
 					phone,
 					name,
-					address
+					address,
+					_jsvar: 'xingxi'
 				}
 			}).then(() => {
+				let item = window.xingxi
+				if (item?.ret == 0) {
+					alert("提交成功！")
+				} else {
+					alert("提交失败！")
+				}
 			}, (err) => {
 			})
 		} else {
